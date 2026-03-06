@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kali Linux - Web Simulator</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/terminal.css">
+    <link rel="stylesheet" href="styles/desktop.css">
+    <link rel="stylesheet" href="styles/apps.css">
+</head>
+<body>
+    <!-- Boot Screen -->
+    <div id="boot-screen">
+        <div class="boot-content">
+            <div class="kali-logo">
+                <svg width="120" height="120" viewBox="0 0 120 120">
+                    <path d="M60 5 L65 25 L85 25 L70 40 L75 60 L60 48 L45 60 L50 40 L35 25 L55 25 Z" fill="#557"/>
+                    <circle cx="60" cy="60" r="20" fill="none" stroke="#557" stroke-width="2"/>
+                    <text x="60" y="95" text-anchor="middle" fill="#557" font-size="12" font-weight="bold">KALI</text>
+                </svg>
+            </div>
+            <div class="boot-text">
+                <p class="boot-line">Loading Kali Linux kernel...</p>
+                <p class="boot-line">Mounting root filesystem...</p>
+                <p class="boot-line">Starting network services...</p>
+                <p class="boot-line">Initializing security tools...</p>
+                <p class="boot-line">Starting display manager...</p>
+                <p class="boot-line">Welcome to Kali Linux</p>
+            </div>
+            <div class="boot-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Screen -->
+    <div id="login-screen" style="display: none;">
+        <div class="login-container">
+            <div class="login-header">
+                <div class="kali-logo-small">
+                    <svg width="60" height="60" viewBox="0 0 120 120">
+                        <path d="M60 5 L65 25 L85 25 L70 40 L75 60 L60 48 L45 60 L50 40 L35 25 L55 25 Z" fill="#557"/>
+                        <circle cx="60" cy="60" r="20" fill="none" stroke="#557" stroke-width="2"/>
+                    </svg>
+                </div>
+                <h1>Kali Linux</h1>
+                <p class="version">2024.4 ( kali-rolling )</p>
+            </div>
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" value="kali" readonly>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter password (kali)">
+                </div>
+                <button type="submit" class="login-btn">Log In</button>
+            </form>
+            <div class="login-options">
+                <button class="option-btn" id="guest-login">Guest Session</button>
+                <button class="option-btn" id="terminal-login">Terminal Only</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Desktop Environment -->
+    <div id="desktop" style="display: none;">
+        <!-- Top Panel -->
+        <div class="top-panel">
+            <div class="panel-left">
+                <div class="menu-button" id="menu-button">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#557">
+                        <path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z"/>
+                    </svg>
+                    <span>Applications</span>
+                </div>
+                <div class="panel-separator"></div>
+                <div class="desktop-icons">
+                    <div class="desktop-icon" data-app="terminal">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#557">
+                            <rect x="2" y="4" width="20" height="16" rx="2" stroke="#557" stroke-width="2" fill="none"/>
+                            <polyline points="6 8 10 12 6 16" stroke="#557" stroke-width="2" fill="none"/>
+                            <line x1="12" y1="16" x2="18" y2="16" stroke="#557" stroke-width="2"/>
+                        </svg>
+                        <span>Terminal</span>
+                    </div>
+                    <div class="desktop-icon" data-app="files">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#557">
+                            <path d="M10 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6H12L10 4Z"/>
+                        </svg>
+                        <span>Files</span>
+                    </div>
+                    <div class="desktop-icon" data-app="firefox">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#557">
+                            <circle cx="12" cy="12" r="10" stroke="#557" stroke-width="2" fill="none"/>
+                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"/>
+                        </svg>
+                        <span>Firefox</span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-center">
+                <div class="clock" id="clock">12:00</div>
+                <div class="date" id="date">2024-03-01</div>
+            </div>
+            <div class="panel-right">
+                <div class="panel-icon" id="network-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#557">
+                        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"/>
+                    </svg>
+                </div>
+                <div class="panel-icon" id="volume-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#557">
+                        <path d="M3 9V15H7L12 20V4L7 9H3Z"/>
+                    </svg>
+                </div>
+                <div class="panel-icon" id="power-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#557">
+                        <path d="M13 3H11V13H13V3ZM17.83 5.17L16.41 6.59C18.05 7.91 19 9.9 19 12C19 15.86 15.86 19 12 19C8.14 19 5 15.86 5 12C5 9.9 5.95 7.91 7.58 6.58L6.17 5.17C4.23 6.82 3 9.26 3 12C3 16.97 7.03 21 12 21C16.97 21 21 16.97 21 12C21 9.26 19.77 6.82 17.83 5.17Z"/>
+                    </svg>
+                </div>
+                <div class="user-info">
+                    <span class="user-avatar">K</span>
+                    <span class="user-name">kali</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Application Menu -->
+        <div id="app-menu" style="display: none;">
+            <div class="menu-sidebar">
+                <div class="menu-category active">All</div>
+                <div class="menu-category">Favorites</div>
+                <div class="menu-category">System</div>
+                <div class="menu-category">Security</div>
+                <div class="menu-category">Development</div>
+                <div class="menu-category">Utilities</div>
+            </div>
+            <div class="menu-content">
+                <div class="search-box">
+                    <input type="text" placeholder="Search applications..." id="app-search">
+                </div>
+                <div class="app-grid">
+                    <div class="app-item" data-app="terminal">
+                        <div class="app-icon terminal-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="#557">
+                                <rect x="2" y="4" width="20" height="16" rx="2" stroke="#557" stroke-width="2" fill="none"/>
+                                <polyline points="6 8 10 12 6 16" stroke="#557" stroke-width="2" fill="none"/>
+                                <line x1="12" y1="16" x2="18" y2="16" stroke="#557" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <span class="app-name">Terminal</span>
+                    </div>
+                    <div class="app-item" data-app="files">
+                        <div class="app-icon files-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="#557">
+                                <path d="M10 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6H12L10 4Z"/>
+                            </svg>
+                        </div>
+                        <span class="app-name">Files</span>
+                    </div>
+                    <div class="app-item" data-app="firefox">
+                        <div class="app-icon firefox-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="#557">
+                                <circle cx="12" cy="12" r="10" stroke="#557" stroke-width="2" fill="none"/>
+                                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"/>
+                            </svg>
+                        </div>
+                        <span class="app-name">Firefox</span>
+                    </div>
+                    <div class="app-item" data-app="nmap">
+                        <div class="app-icon nmap-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="#557">
+                                <path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM12 4.5L19.5 8.25V15.75L12 19.5L4.5 15.75V8.25L12 4.5Z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </div>
+                        <span class="app-name">Nmap</span>
+                    </div>
+                    <div class="app-item" data-app="wireshark">
+                        <div class="app-icon wireshark-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="#557">
+                                <path d="M3 3H21V5H3V3ZM3 7H21V9H3V7ZM3 11H21V13H3V11ZM3 15H21V17H3V15ZM3 19H21V21H3V19Z"/>
+                            </svg>
+                        </div>
+                        <span class="app-name">Wireshark</span>
+                    </div>
+                    <div class="app-item" data-app="metasploit">
+                        <div class="app-icon metasploit-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="#557">
+                                <path d="M12 2L2 7L12 12L22 7L12 2ZM2 17L12 22L22 17V7L12 12L2 7V17Z"/>
+                            </svg>
+                        </div>
+                        <span class="app-name">Metasploit</span>
+                    </div>
+                    <div class="app-item" data-app="burpsuite">
+                        <div class="app-icon burpsuite-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="#557">
+                                <circle cx="12" cy="12" r="8"/>
+                                <path d="M12 6V18M6 12H18" stroke="#fff" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <span class="app-name">Burp Suite</span>
+                    </div>
+                    <div class="app-item" data-app="john">
+                        <div class="app-icon john-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="#557">
+                                <rect x="4" y="4" width="16" height="16" rx="2"/>
+                                <text x="12" y="16" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">JtR</text>
+                            </svg>
+                        </div>
+                        <span class="app-name">John the Ripper</span>
+                    </div>
+                    <div class="app-item" data-app="hydra">
+                        <div class="app-icon hydra-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="#557">
+                                <path d="M12 2L4 8V20H20V8L12 2ZM12 4.5L18 9V18H6V9L12 4.5Z"/>
+                                <circle cx="12" cy="14" r="2"/>
+                            </svg>
+                        </div>
+                        <span class="app-name">Hydra</span>
+                    </div>
+                    <div class="app-item" data-app="aircrack">
+                        <div class="app-icon aircrack-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="#557">
+                                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"/>
+                                <path d="M12 6V12L16 14"/>
+                            </svg>
+                        </div>
+                        <span class="app-name">Aircrack-ng</span>
+                    </div>
+                    <div class="app-item" data-app="gobuster">
+                        <div class="app-icon gobuster-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="#557">
+                                <path d="M12 2L2 12H12V22L22 12H12V2Z"/>
+                            </svg>
+                        </div>
+                        <span class="app-name">Gobuster</span>
+                    </div>
+                    <div class="app-item" data-app="sqlmap">
+                        <div class="app-icon sqlmap-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="#557">
+                                <path d="M4 4H20V20H4V4ZM6 6V18H18V6H6Z"/>
+                                <text x="12" y="15" text-anchor="middle" fill="#557" font-size="8" font-weight="bold">SQL</text>
+                            </svg>
+                        </div>
+                        <span class="app-name">SQLMap</span>
+                    </div>
+                    <div class="app-item" data-app="settings">
+                        <div class="app-icon settings-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="#557">
+                                <path d="M19.14 12.94C19.18 12.64 19.2 12.33 19.2 12C19.2 11.68 19.18 11.36 19.13 11.06L21.16 9.48C21.34 9.34 21.39 9.07 21.28 8.87L19.36 5.55C19.24 5.33 18.99 5.26 18.77 5.33L16.38 6.29C15.88 5.91 15.35 5.59 14.76 5.35L14.4 2.81C14.36 2.57 14.16 2.4 13.92 2.4H10.08C9.84 2.4 9.65 2.57 9.61 2.81L9.25 5.35C8.66 5.59 8.12 5.92 7.63 6.29L5.24 5.33C5.02 5.25 4.77 5.33 4.65 5.55L2.74 8.87C2.62 9.08 2.66 9.34 2.86 9.48L4.89 11.06C4.84 11.36 4.8 11.69 4.8 12C4.8 12.31 4.82 12.64 4.87 12.94L2.84 14.52C2.66 14.66 2.61 14.93 2.72 15.13L4.64 18.45C4.76 18.67 5.01 18.74 5.23 18.67L7.62 17.71C8.12 18.09 8.65 18.41 9.24 18.65L9.6 21.19C9.65 21.43 9.84 21.6 10.08 21.6H13.92C14.16 21.6 14.36 21.43 14.39 21.19L14.75 18.65C15.34 18.41 15.88 18.09 16.37 17.71L18.76 18.67C18.98 18.75 19.23 18.67 19.35 18.45L21.27 15.13C21.39 14.91 21.34 14.66 21.15 14.52L19.14 12.94ZM12 15.6C10.01 15.6 8.4 13.99 8.4 12C8.4 10.01 10.01 8.4 12 8.4C13.99 8.4 15.6 10.01 15.6 12C15.6 13.99 13.99 15.6 12 15.6Z"/>
+                            </svg>
+                        </div>
+                        <span class="app-name">Settings</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desktop Area -->
+        <div id="desktop-area">
+            <div class="desktop-shortcut" data-app="terminal">
+                <div class="shortcut-icon terminal-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="#557">
+                        <rect x="2" y="4" width="20" height="16" rx="2" stroke="#557" stroke-width="2" fill="none"/>
+                        <polyline points="6 8 10 12 6 16" stroke="#557" stroke-width="2" fill="none"/>
+                        <line x1="12" y1="16" x2="18" y2="16" stroke="#557" stroke-width="2"/>
+                    </svg>
+                </div>
+                <span class="shortcut-label">Terminal</span>
+            </div>
+            <div class="desktop-shortcut" data-app="files">
+                <div class="shortcut-icon files-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="#557">
+                        <path d="M10 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6H12L10 4Z"/>
+                    </svg>
+                </div>
+                <span class="shortcut-label">Home Folder</span>
+            </div>
+            <div class="desktop-shortcut" data-app="nmap">
+                <div class="shortcut-icon nmap-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="#557">
+                        <path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM12 4.5L19.5 8.25V15.75L12 19.5L4.5 15.75V8.25L12 4.5Z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </div>
+                <span class="shortcut-label">Nmap</span>
+            </div>
+            <div class="desktop-shortcut" data-app="wireshark">
+                <div class="shortcut-icon wireshark-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="#557">
+                        <path d="M3 3H21V5H3V3ZM3 7H21V9H3V7ZM3 11H21V13H3V11ZM3 15H21V17H3V15ZM3 19H21V21H3V19Z"/>
+                    </svg>
+                </div>
+                <span class="shortcut-label">Wireshark</span>
+            </div>
+            <div class="desktop-shortcut" data-app="metasploit">
+                <div class="shortcut-icon metasploit-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="#557">
+                        <path d="M12 2L2 7L12 12L22 7L12 2ZM2 17L12 22L22 17V7L12 12L2 7V17Z"/>
+                    </svg>
+                </div>
+                <span class="shortcut-label">Metasploit</span>
+            </div>
+        </div>
+
+        <!-- Window Container -->
+        <div id="window-container"></div>
+
+        <!-- Bottom Panel (Dock) -->
+        <div class="bottom-panel">
+            <div class="dock-container">
+                <div class="dock-item" data-app="terminal">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="#557">
+                        <rect x="2" y="4" width="20" height="16" rx="2" stroke="#557" stroke-width="2" fill="none"/>
+                        <polyline points="6 8 10 12 6 16" stroke="#557" stroke-width="2" fill="none"/>
+                        <line x1="12" y1="16" x2="18" y2="16" stroke="#557" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="dock-item" data-app="files">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="#557">
+                        <path d="M10 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6H12L10 4Z"/>
+                    </svg>
+                </div>
+                <div class="dock-item" data-app="firefox">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="#557">
+                        <circle cx="12" cy="12" r="10" stroke="#557" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
+                <div class="dock-separator"></div>
+                <div class="dock-item" id="show-desktop">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="#557">
+                        <rect x="2" y="2" width="9" height="9" stroke="#557" stroke-width="2" fill="none"/>
+                        <rect x="13" y="2" width="9" height="9" stroke="#557" stroke-width="2" fill="none"/>
+                        <rect x="2" y="13" width="9" height="9" stroke="#557" stroke-width="2" fill="none"/>
+                        <rect x="13" y="13" width="9" height="9" stroke="#557" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="workspace-indicator">
+                <div class="workspace active"></div>
+                <div class="workspace"></div>
+                <div class="workspace"></div>
+                <div class="workspace"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/filesystem.js"></script>
+    <script src="scripts/terminal.js"></script>
+    <script src="scripts/apps.js"></script>
+    <script src="scripts/window-manager.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
