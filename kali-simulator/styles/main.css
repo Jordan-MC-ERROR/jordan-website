@@ -1,0 +1,414 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --kali-blue: #557799;
+    --kali-dark-blue: #3d5a73;
+    --kali-light-blue: #7a9cb8;
+    --kali-green: #55aa55;
+    --kali-red: #aa5555;
+    --kali-yellow: #aaaa55;
+    --terminal-bg: #1e1e1e;
+    --terminal-text: #d4d4d4;
+    --window-bg: #2d2d2d;
+    --panel-bg: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: #404040;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    background: #000;
+    color: var(--text-primary);
+    user-select: none;
+}
+
+/* Boot Screen */
+#boot-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.boot-content {
+    text-align: center;
+    color: var(--kali-blue);
+}
+
+.kali-logo {
+    margin-bottom: 30px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+
+.boot-text {
+    text-align: left;
+    max-width: 500px;
+    margin: 0 auto 30px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.boot-line {
+    opacity: 0;
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.boot-line:nth-child(1) { animation-delay: 0.5s; }
+.boot-line:nth-child(2) { animation-delay: 1.0s; }
+.boot-line:nth-child(3) { animation-delay: 1.5s; }
+.boot-line:nth-child(4) { animation-delay: 2.0s; }
+.boot-line:nth-child(5) { animation-delay: 2.5s; }
+.boot-line:nth-child(6) { animation-delay: 3.0s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.boot-progress {
+    width: 400px;
+    height: 4px;
+    background: rgba(85, 119, 153, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--kali-blue);
+    width: 0%;
+    animation: progress 3s ease-out forwards;
+    animation-delay: 1s;
+}
+
+@keyframes progress {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+/* Login Screen */
+#login-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.login-container {
+    background: rgba(45, 45, 45, 0.95);
+    border-radius: 12px;
+    padding: 40px;
+    width: 400px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-color);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.kali-logo-small {
+    margin-bottom: 15px;
+}
+
+.login-header h1 {
+    color: var(--kali-blue);
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.version {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    background: var(--terminal-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--kali-blue);
+    box-shadow: 0 0 0 3px rgba(85, 119, 153, 0.1);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--kali-blue);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.login-btn:hover {
+    background: var(--kali-dark-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(85, 119, 153, 0.3);
+}
+
+.login-options {
+    display: flex;
+    gap: 10px;
+}
+
+.option-btn {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.option-btn:hover {
+    background: rgba(85, 119, 153, 0.1);
+    color: var(--kali-blue);
+    border-color: var(--kali-blue);
+}
+
+/* Desktop Environment */
+#desktop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+}
+
+/* Desktop Area */
+#desktop-area {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    right: 0;
+    bottom: 64px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 20px;
+}
+
+.desktop-shortcut {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.desktop-shortcut:hover {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.shortcut-icon {
+    margin-bottom: 8px;
+    transition: transform 0.2s ease;
+}
+
+.desktop-shortcut:hover .shortcut-icon {
+    transform: scale(1.1);
+}
+
+.shortcut-label {
+    font-size: 12px;
+    color: var(--text-primary);
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--panel-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--kali-blue);
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .login-container {
+        width: 90%;
+        padding: 30px;
+    }
+    
+    .boot-progress {
+        width: 90%;
+    }
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--kali-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Tooltip */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    margin-bottom: 8px;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+}
+
+/* Focus States */
+*:focus {
+    outline: none;
+}
+
+*:focus-visible {
+    outline: 2px solid var(--kali-blue);
+    outline-offset: 2px;
+}
