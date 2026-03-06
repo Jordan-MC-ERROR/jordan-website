@@ -1,0 +1,920 @@
+/* Kali Linux Simulator - 菜单样式 */
+/* 开始菜单样式 */
+.start-menu {
+    position: fixed;
+    bottom: 40px;
+    left: 0;
+    width: 400px;
+    max-height: 600px;
+    background-color: var(--kali-secondary);
+    border: 1px solid var(--kali-border);
+    border-radius: var(--kali-radius);
+    z-index: 2001;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+.start-menu.show {
+    display: flex;
+}
+
+/* 开始菜单头部 */
+.start-menu-header {
+    padding: 15px;
+    border-bottom: 1px solid var(--kali-border);
+    background: linear-gradient(45deg, var(--kali-primary), var(--kali-secondary));
+}
+
+.start-menu-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--kali-text);
+}
+
+.start-menu-user i {
+    color: var(--kali-accent);
+    font-size: 16px;
+}
+
+/* 开始菜单内容 */
+.start-menu-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.start-menu-section {
+    margin-bottom: 20px;
+}
+
+.start-menu-section h3 {
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: var(--kali-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.start-menu-apps, .start-menu-tools {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.start-menu-app, .start-menu-tool {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border-radius: var(--kali-radius);
+    cursor: pointer;
+    transition: var(--kali-transition);
+    user-select: none;
+}
+
+.start-menu-app:hover, .start-menu-tool:hover {
+    background-color: var(--kali-hover);
+}
+
+.start-menu-app:active, .start-menu-tool:active {
+    background-color: var(--kali-selected);
+}
+
+.start-menu-app i, .start-menu-tool i {
+    color: var(--kali-accent);
+    font-size: 16px;
+    transition: var(--kali-transition);
+}
+
+.start-menu-app:hover i, .start-menu-tool:hover i {
+    transform: scale(1.1);
+}
+
+.start-menu-app span, .start-menu-tool span {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 开始菜单底部 */
+.start-menu-footer {
+    padding: 10px;
+    border-top: 1px solid var(--kali-border);
+    background-color: var(--kali-primary);
+}
+
+.start-menu-shutdown {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border-radius: var(--kali-radius);
+    cursor: pointer;
+    transition: var(--kali-transition);
+    color: var(--kali-error);
+    user-select: none;
+}
+
+.start-menu-shutdown:hover {
+    background-color: var(--kali-error);
+    color: white;
+}
+
+.start-menu-shutdown:active {
+    background-color: #ef2929;
+    color: white;
+}
+
+.start-menu-shutdown i {
+    font-size: 16px;
+}
+
+/* 开始菜单搜索 */
+.start-menu-search {
+    padding: 10px;
+    border-bottom: 1px solid var(--kali-border);
+}
+
+.start-menu-search input {
+    width: 100%;
+    background-color: var(--kali-primary);
+    border: 1px solid var(--kali-border);
+    color: var(--kali-text);
+    padding: 8px 15px;
+    border-radius: var(--kali-radius);
+    font-size: 12px;
+    transition: var(--kali-transition);
+}
+
+.start-menu-search input:focus {
+    outline: none;
+    border-color: var(--kali-accent);
+}
+
+.start-menu-search input::placeholder {
+    color: var(--kali-text-secondary);
+}
+
+/* 开始菜单动画 */
+@keyframes startMenuSlideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes startMenuSlideDown {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+.start-menu.show {
+    animation: startMenuSlideUp 0.3s ease;
+}
+
+.start-menu.hide {
+    animation: startMenuSlideDown 0.3s ease;
+}
+
+/* 开始菜单应用列表动画 */
+.start-menu-apps, .start-menu-tools {
+    animation: appsSlideUp 0.3s ease;
+}
+
+@keyframes appsSlideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 开始菜单底部动画 */
+.start-menu-footer {
+    animation: footerSlideUp 0.3s ease;
+}
+
+@keyframes footerSlideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 开始菜单搜索动画 */
+.start-menu-search {
+    animation: searchSlideDown 0.3s ease;
+}
+
+@keyframes searchSlideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 开始菜单背景模糊 */
+.start-menu {
+    backdrop-filter: blur(10px);
+}
+
+/* 开始菜单响应式设计 */
+@media (max-width: 768px) {
+    .start-menu {
+        width: 300px;
+        max-height: 500px;
+    }
+    
+    .start-menu-apps, .start-menu-tools {
+        grid-template-columns: 1fr;
+    }
+    
+    .start-menu-section h3 {
+        font-size: 11px;
+    }
+    
+    .start-menu-app, .start-menu-tool {
+        padding: 6px;
+    }
+    
+    .start-menu-app i, .start-menu-tool i {
+        font-size: 14px;
+    }
+    
+    .start-menu-app span, .start-menu-tool span {
+        font-size: 11px;
+    }
+    
+    .start-menu-shutdown {
+        padding: 6px;
+    }
+    
+    .start-menu-shutdown i {
+        font-size: 14px;
+    }
+}
+
+/* 开始菜单打印样式 */
+@media print {
+    .start-menu {
+        display: none;
+    }
+}
+
+/* 任务栏菜单样式 */
+.taskbar-context-menu {
+    position: fixed;
+    background-color: var(--kali-secondary);
+    border: 1px solid var(--kali-border);
+    border-radius: var(--kali-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 3000;
+    min-width: 150px;
+    display: none;
+    backdrop-filter: blur(10px);
+}
+
+.taskbar-context-menu.show {
+    display: block;
+}
+
+.taskbar-context-menu-item {
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: var(--kali-transition);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+}
+
+.taskbar-context-menu-item:hover {
+    background-color: var(--kali-hover);
+}
+
+.taskbar-context-menu-item:active {
+    background-color: var(--kali-selected);
+}
+
+.taskbar-context-menu-item i {
+    color: var(--kali-accent);
+    font-size: 14px;
+    transition: var(--kali-transition);
+}
+
+.taskbar-context-menu-item:hover i {
+    transform: scale(1.1);
+}
+
+.taskbar-context-menu-item.divider {
+    height: 1px;
+    background-color: var(--kali-border);
+    margin: 5px 0;
+    padding: 0;
+}
+
+.taskbar-context-menu-item.disabled {
+    color: var(--kali-text-secondary);
+    cursor: not-allowed;
+}
+
+.taskbar-context-menu-item.disabled:hover {
+    background-color: transparent;
+}
+
+.taskbar-context-menu-item i {
+    color: var(--kali-accent);
+}
+
+/* 任务栏菜单动画 */
+@keyframes taskbarContextMenuSlideUp {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.taskbar-context-menu.show {
+    animation: taskbarContextMenuSlideUp 0.2s ease;
+}
+
+/* 任务栏菜单响应式设计 */
+@media (max-width: 768px) {
+    .taskbar-context-menu {
+        min-width: 120px;
+    }
+    
+    .taskbar-context-menu-item {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+    
+    .taskbar-context-menu-item i {
+        font-size: 12px;
+    }
+}
+
+/* 任务栏菜单打印样式 */
+@media print {
+    .taskbar-context-menu {
+        display: none;
+    }
+}
+
+/* 窗口菜单栏样式 */
+.window-menubar {
+    display: flex;
+    padding: 0;
+    background-color: var(--kali-secondary);
+    border-bottom: 1px solid var(--kali-border);
+    user-select: none;
+}
+
+.window-menubar-item {
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: var(--kali-transition);
+    font-size: 12px;
+    user-select: none;
+}
+
+.window-menubar-item:hover {
+    background-color: var(--kali-hover);
+}
+
+.window-menubar-item:active {
+    background-color: var(--kali-selected);
+}
+
+.window-menubar-item i {
+    margin-left: 5px;
+    font-size: 10px;
+}
+
+.window-menubar-item.disabled {
+    color: var(--kali-text-secondary);
+    cursor: not-allowed;
+}
+
+.window-menubar-item.disabled:hover {
+    background-color: transparent;
+}
+
+/* 窗口菜单栏动画 */
+@keyframes windowMenubarSlideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.window-menubar {
+    animation: windowMenubarSlideDown 0.2s ease;
+}
+
+/* 窗口菜单栏响应式设计 */
+@media (max-width: 768px) {
+    .window-menubar {
+        padding: 0;
+    }
+    
+    .window-menubar-item {
+        padding: 3px 8px;
+        font-size: 11px;
+    }
+    
+    .window-menubar-item i {
+        font-size: 9px;
+    }
+}
+
+/* 窗口菜单栏打印样式 */
+@media print {
+    .window-menubar {
+        display: none;
+    }
+}
+
+/* 右键菜单样式 */
+.context-menu {
+    position: fixed;
+    background-color: var(--kali-secondary);
+    border: 1px solid var(--kali-border);
+    border-radius: var(--kali-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 3000;
+    min-width: 150px;
+    display: none;
+    backdrop-filter: blur(10px);
+}
+
+.context-menu.show {
+    display: block;
+}
+
+.context-menu-item {
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: var(--kali-transition);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+}
+
+.context-menu-item:hover {
+    background-color: var(--kali-hover);
+}
+
+.context-menu-item:active {
+    background-color: var(--kali-selected);
+}
+
+.context-menu-item i {
+    color: var(--kali-accent);
+    font-size: 14px;
+    transition: var(--kali-transition);
+}
+
+.context-menu-item:hover i {
+    transform: scale(1.1);
+}
+
+.context-menu-item.divider {
+    height: 1px;
+    background-color: var(--kali-border);
+    margin: 5px 0;
+    padding: 0;
+}
+
+.context-menu-item.disabled {
+    color: var(--kali-text-secondary);
+    cursor: not-allowed;
+}
+
+.context-menu-item.disabled:hover {
+    background-color: transparent;
+}
+
+.context-menu-item i {
+    color: var(--kali-accent);
+}
+
+/* 右键菜单动画 */
+@keyframes contextMenuSlideUp {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.context-menu.show {
+    animation: contextMenuSlideUp 0.2s ease;
+}
+
+/* 右键菜单响应式设计 */
+@media (max-width: 768px) {
+    .context-menu {
+        min-width: 120px;
+    }
+    
+    .context-menu-item {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+    
+    .context-menu-item i {
+        font-size: 12px;
+    }
+}
+
+/* 右键菜单打印样式 */
+@media print {
+    .context-menu {
+        display: none;
+    }
+}
+
+/* 系统托盘菜单样式 */
+.system-tray-menu {
+    position: fixed;
+    background-color: var(--kali-secondary);
+    border: 1px solid var(--kali-border);
+    border-radius: var(--kali-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 3000;
+    min-width: 200px;
+    display: none;
+    backdrop-filter: blur(10px);
+}
+
+.system-tray-menu.show {
+    display: block;
+}
+
+.system-tray-menu-item {
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: var(--kali-transition);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+}
+
+.system-tray-menu-item:hover {
+    background-color: var(--kali-hover);
+}
+
+.system-tray-menu-item:active {
+    background-color: var(--kali-selected);
+}
+
+.system-tray-menu-item i {
+    color: var(--kali-accent);
+    font-size: 14px;
+    transition: var(--kali-transition);
+}
+
+.system-tray-menu-item:hover i {
+    transform: scale(1.1);
+}
+
+.system-tray-menu-item.divider {
+    height: 1px;
+    background-color: var(--kali-border);
+    margin: 5px 0;
+    padding: 0;
+}
+
+.system-tray-menu-item.disabled {
+    color: var(--kali-text-secondary);
+    cursor: not-allowed;
+}
+
+.system-tray-menu-item.disabled:hover {
+    background-color: transparent;
+}
+
+.system-tray-menu-item i {
+    color: var(--kali-accent);
+}
+
+/* 系统托盘菜单动画 */
+@keyframes systemTrayMenuSlideUp {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.system-tray-menu.show {
+    animation: systemTrayMenuSlideUp 0.2s ease;
+}
+
+/* 系统托盘菜单响应式设计 */
+@media (max-width: 768px) {
+    .system-tray-menu {
+        min-width: 150px;
+    }
+    
+    .system-tray-menu-item {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+    
+    .system-tray-menu-item i {
+        font-size: 12px;
+    }
+}
+
+/* 系统托盘菜单打印样式 */
+@media print {
+    .system-tray-menu {
+        display: none;
+    }
+}
+
+/* 应用启动器菜单样式 */
+.app-launcher-menu {
+    position: fixed;
+    background-color: var(--kali-secondary);
+    border: 1px solid var(--kali-border);
+    border-radius: var(--kali-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    min-width: 150px;
+    display: none;
+    backdrop-filter: blur(10px);
+}
+
+.app-launcher-menu.show {
+    display: block;
+}
+
+.app-launcher-menu-item {
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: var(--kali-transition);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+}
+
+.app-launcher-menu-item:hover {
+    background-color: var(--kali-hover);
+}
+
+.app-launcher-menu-item:active {
+    background-color: var(--kali-selected);
+}
+
+.app-launcher-menu-item i {
+    color: var(--kali-accent);
+    font-size: 14px;
+    transition: var(--kali-transition);
+}
+
+.app-launcher-menu-item:hover i {
+    transform: scale(1.1);
+}
+
+.app-launcher-menu-item.divider {
+    height: 1px;
+    background-color: var(--kali-border);
+    margin: 5px 0;
+    padding: 0;
+}
+
+.app-launcher-menu-item.disabled {
+    color: var(--kali-text-secondary);
+    cursor: not-allowed;
+}
+
+.app-launcher-menu-item.disabled:hover {
+    background-color: transparent;
+}
+
+.app-launcher-menu-item i {
+    color: var(--kali-accent);
+}
+
+/* 应用启动器菜单动画 */
+@keyframes appLauncherMenuSlideUp {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.app-launcher-menu.show {
+    animation: appLauncherMenuSlideUp 0.2s ease;
+}
+
+/* 应用启动器菜单响应式设计 */
+@media (max-width: 768px) {
+    .app-launcher-menu {
+        min-width: 120px;
+    }
+    
+    .app-launcher-menu-item {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+    
+    .app-launcher-menu-item i {
+        font-size: 12px;
+    }
+}
+
+/* 应用启动器菜单打印样式 */
+@media print {
+    .app-launcher-menu {
+        display: none;
+    }
+}
+
+/* 菜单主题切换 */
+.start-menu.dark-theme {
+    --kali-secondary: #1e1e1e;
+    --kali-border: #404040;
+}
+
+.start-menu.light-theme {
+    --kali-secondary: #ffffff;
+    --kali-border: #d0d0d0;
+}
+
+.start-menu.blue-theme {
+    --kali-secondary: #001f3f;
+    --kali-border: #0074d9;
+}
+
+.start-menu.green-theme {
+    --kali-secondary: #003300;
+    --kali-border: #2ecc40;
+}
+
+.start-menu.red-theme {
+    --kali-secondary: #330000;
+    --kali-border: #ff4136;
+}
+
+.start-menu.purple-theme {
+    --kali-secondary: #330033;
+    --kali-border: #b10dc9;
+}
+
+.start-menu.orange-theme {
+    --kali-secondary: #331a00;
+    --kali-border: #ff851b;
+}
+
+.start-menu.teal-theme {
+    --kali-secondary: #003333;
+    --kali-border: #39cccc;
+}
+
+.start-menu.navy-theme {
+    --kali-secondary: #001f3f;
+    --kali-border: #0074d9;
+}
+
+/* 菜单自定义样式 */
+.start-menu.custom-style {
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.start-menu.custom-style .start-menu-header {
+    border-radius: 10px 10px 0 0;
+}
+
+.start-menu.custom-style .start-menu-footer {
+    border-radius: 0 0 10px 10px;
+}
+
+/* 菜单透明度 */
+.start-menu.transparent {
+    opacity: 0.8;
+}
+
+.start-menu.transparent:hover {
+    opacity: 1;
+}
+
+/* 菜单禁用 */
+.start-menu.disabled {
+    pointer-events: none;
+}
+
+.start-menu.disabled .start-menu-item {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* 菜单自定义边框 */
+.start-menu.custom-border {
+    border: 3px solid var(--kali-accent);
+}
+
+/* 菜单自定义背景 */
+.start-menu.custom-bg {
+    background-color: var(--kali-secondary);
+}
+
+/* 菜单自定义字体 */
+.start-menu.custom-font {
+    font-family: 'Courier New', monospace;
+}
+
+/* 菜单自定义动画 */
+.start-menu.custom-animation {
+    transition: all 0.5s ease;
+}
+
+.start-menu.custom-animation:hover {
+    transform: scale(1.02);
+}
+
+/* 菜单自定义焦点效果 */
+.start-menu.custom-focus {
+    border-color: var(--kali-accent);
+    box-shadow: 0 4px 12px rgba(78, 154, 6, 0.5);
+}
+
+.start-menu.custom-focus.focused {
+    border-color: var(--kali-selected);
+    box-shadow: 0 8px 24px rgba(78, 154, 6, 0.5);
+}
+
+/* 菜单自定义响应式效果 */
+@media (max-width: 768px) {
+    .start-menu.custom-responsive {
+        width: 300px;
+        max-height: 500px;
+    }
+    
+    .start-menu.custom-responsive .start-menu-apps, .start-menu.custom-responsive .start-menu-tools {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 菜单自定义打印效果 */
+@media print {
+    .start-menu.custom-print {
+        display: none;
+    }
+}
