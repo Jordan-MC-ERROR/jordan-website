@@ -391,7 +391,11 @@ input:checked + .toggle-slider:before {
 
 /* 移动端控制按钮 - 默认隐藏，只在移动端显示 */
 .mobile-controls {
-    display: none;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
 }
 
 /* 响应式设计 */
