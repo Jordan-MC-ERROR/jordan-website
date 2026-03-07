@@ -322,10 +322,33 @@ class Terminal {
 <span class="help-command">netstat</span> <span class="help-description">Network statistics</span>
 <span class="help-command">nslookup [host]</span> <span class="help-description">DNS lookup</span>
 
-<span class="help-section-title">Security Tools</span>
+<span class="help-section-title">Security Tools - Scanning</span>
 <span class="help-command">nmap [target]</span> <span class="help-description">Network mapper and scanner</span>
 <span class="help-command">whois [domain]</span> <span class="help-description">Domain information lookup</span>
-<span class="help-command">dig [domain]</span> <span class="help-description">DNS lookup utility</span>
+<span class="help-command">nikto -h [URL]</span> <span class="help-description">Web server scanner</span>
+<span class="help-command">gobuster dir -u [URL] -w [wordlist]</span> <span class="help-description">Directory brute forcing tool</span>
+<span class="help-command">dirb [URL] [wordlist]</span> <span class="help-description">Directory brute forcing tool</span>
+
+<span class="help-section-title">Security Tools - Password Cracking</span>
+<span class="help-command">hydra [target] [service]</span> <span class="help-description">Parallel login cracker</span>
+<span class="help-command">john [hash file]</span> <span class="help-description">John the Ripper password cracker</span>
+<span class="help-command">hashcat [hash file] [wordlist]</span> <span class="help-description">Advanced password recovery</span>
+
+<span class="help-section-title">Security Tools - Web</span>
+<span class="help-command">sqlmap -u [URL]</span> <span class="help-description">Automatic SQL injection tool</span>
+<span class="help-command">burpsuite</span> <span class="help-description">Web application security testing tool</span>
+
+<span class="help-section-title">Security Tools - Wireless</span>
+<span class="help-command">aircrack-ng [capture file]</span> <span class="help-description">WEP/WPA cracking tool</span>
+
+<span class="help-section-title">Security Tools - Frameworks</span>
+<span class="help-command">msfconsole</span> <span class="help-description">Metasploit Framework console</span>
+
+<span class="help-section-title">Development Tools</span>
+<span class="help-command">git</span> <span class="help-description">Version control system</span>
+<span class="help-command">gdb</span> <span class="help-description">GNU debugger</span>
+<span class="help-command">vim</span> <span class="help-description">Vi IMproved text editor</span>
+<span class="help-command">nano</span> <span class="help-description">Simple text editor</span>
 
 <span class="help-section-title">Other</span>
 <span class="help-command">clear</span> <span class="help-description">Clear terminal screen</span>
@@ -731,6 +754,381 @@ expiration:   2025-01-01
 name servers:
     NS1.EXAMPLE.COM
     NS2.EXAMPLE.COM`;
+        },
+
+        hydra: function(args) {
+            if (args.length < 2) {
+                return `<span class="terminal-error">hydra: missing arguments</span>
+<span class="terminal-dim">Usage: hydra [target] [service] [options]</span>
+<span class="terminal-dim">Example: hydra -l user -P wordlist.txt ssh://192.168.1.1</span>`;
+            }
+            
+            const target = args[0];
+            const service = args[1];
+            this.print(`<span class="terminal-info">Hydra v9.5 (c) 2023 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.</span>`);
+            this.print(`<span class="terminal-info">Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at ${new Date().toLocaleTimeString()}</span>`);
+            this.print(`<span class="terminal-info">[DATA] max 16 tasks per 1 server, overall 16 tasks, 1 login try (l:1/p:1), ~1 try per task</span>`);
+            this.print(`<span class="terminal-info">[DATA] attacking ${service}://${target}</span>`);
+
+            setTimeout(() => {
+                this.print(`<span class="terminal-success">[ATTEMPT] ${target}:${service} - Trying password: password</span>`, 'terminal-dim');
+            }, 500);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-success">[ATTEMPT] ${target}:${service} - Trying password: 123456</span>`, 'terminal-dim');
+            }, 1000);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-warning">[WARNING] no successful login found for ${target}:${service}</span>`, 'terminal-warning');
+                this.print(`<span class="terminal-info">1 of 1 target completed, 0 valid passwords found</span>`);
+                this.print(`<span class="terminal-info">Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at ${new Date().toLocaleTimeString()}</span>`);
+            }, 2000);
+            
+            return;
+        },
+
+        john: function(args) {
+            if (args.length === 0) {
+                return `<span class="terminal-error">john: missing file operand</span>
+<span class="terminal-dim">Usage: john [options] [password file]</span>
+<span class="terminal-dim">Example: john --wordlist=rockyou.txt hashes.txt</span>`;
+            }
+            
+            const file = args[0];
+            this.print(`<span class="terminal-info">John the Ripper 1.9.0-jumbo-1 [Linux 64-bit x86_64 AVX2 AC]</span>`);
+            this.print(`<span class="terminal-info">Cost 1 (iteration count) is 65536 for all loaded hashes</span>`);
+            this.print(`<span class="terminal-info">Will run 4 OpenMP threads</span>`);
+            this.print(`<span class="terminal-info">Proceeding with wordlist mode, batch mode</span>`);
+            this.print(`<span class="terminal-info">Loading wordlist from /usr/share/wordlists/rockyou.txt</span>`);
+
+            setTimeout(() => {
+                this.print(`<span class="terminal-success">password123     (${file})</span>`, 'terminal-success');
+            }, 1500);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-success">admin123       (${file})</span>`, 'terminal-success');
+            }, 2500);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-info">2 password hashes cracked, 0 left</span>`);
+                this.print(`<span class="terminal-info">Session completed.</span>`);
+            }, 3500);
+            
+            return;
+        },
+
+        msfconsole: function(args) {
+            this.print(`<span class="terminal-info">Metasploit Framework Console</span>`);
+            this.print(`<span class="terminal-info">Version: 6.3.35</span>`);
+            this.print(`<span class="terminal-info">Type 'help' for a list of commands</span>`);
+            this.print(`<span class="terminal-success">msf6></span>`, 'terminal-prompt');
+            return;
+        },
+
+        aircrack: function(args) {
+            if (args.length === 0) {
+                return `<span class="terminal-error">aircrack-ng: missing file operand</span>
+<span class="terminal-dim">Usage: aircrack-ng [options] <capture file></span>
+<span class="terminal-dim">Example: aircrack-ng -w wordlist.txt capture.cap</span>`;
+            }
+            
+            const file = args[0];
+            this.print(`<span class="terminal-info">Aircrack-ng 1.7</span>`);
+            this.print(`<span class="terminal-info">[1] 1 targets found</span>`);
+            this.print(`<span class="terminal-info">Reading packets, please wait...</span>`);
+
+            setTimeout(() => {
+                this.print(`<span class="terminal-info">512 packets read</span>`);
+                this.print(`<span class="terminal-info">Number of IVs: 256</span>`);
+            }, 1000);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-warning">KEY NOT FOUND! Try increasing the number of IVs captured.</span>`, 'terminal-warning');
+            }, 2000);
+            
+            return;
+        },
+
+        burpsuite: function(args) {
+            this.print(`<span class="terminal-info">Burp Suite Professional</span>`);
+            this.print(`<span class="terminal-info">Version: 2024.2</span>`);
+            this.print(`<span class="terminal-info">Starting Burp Suite...</span>`);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-success">Burp Suite started successfully</span>`);
+                this.print(`<span class="terminal-info">Listening on http://127.0.0.1:8080</span>`);
+            }, 1500);
+            
+            return;
+        },
+
+        sqlmap: function(args) {
+            if (args.length === 0) {
+                return `<span class="terminal-error">sqlmap: missing URL operand</span>
+<span class="terminal-dim">Usage: sqlmap [options] [URL]</span>
+<span class="terminal-dim">Example: sqlmap -u "http://example.com/page?id=1"</span>`;
+            }
+            
+            const url = args[0];
+            this.print(`<span class="terminal-info">sqlmap/1.7.1#stable</span>`);
+            this.print(`<span class="terminal-info">http://sqlmap.org</span>`);
+            this.print(`<span class="terminal-info">Usage: sqlmap [options]</span>`);
+            this.print(`<span class="terminal-info">[*] starting at ${new Date().toLocaleTimeString()}</span>`);
+            this.print(`<span class="terminal-info">[*] testing connection to the target URL</span>`);
+            this.print(`<span class="terminal-info">[*] testing if the target URL content is stable</span>`);
+
+            setTimeout(() => {
+                this.print(`<span class="terminal-warning">the target URL content is not stable (i.e. content changes)</span>`, 'terminal-warning');
+                this.print(`<span class="terminal-info">Caution: heuristic test shows that the target might be vulnerable to SQL injection</span>`);
+            }, 1500);
+            
+            return;
+        },
+
+        hashcat: function(args) {
+            if (args.length === 0) {
+                return `<span class="terminal-error">hashcat: missing hash file</span>
+<span class="terminal-dim">Usage: hashcat [options] [hash file] [wordlist file]</span>`;
+            }
+            
+            this.print(`<span class="terminal-info">hashcat (v6.2.6) starting</span>`);
+            this.print(`<span class="terminal-info">OpenCL API (Runtime) - Platform #1 [Intel Corporation]</span>`);
+            this.print(`<span class="terminal-info">* Device #1: Intel(R) UHD Graphics 620, 1200/4864 MB (2048 MB allocatable)</span>`);
+            this.print(`<span class="terminal-info">Minimum password length supported by kernel: 0</span>`);
+            this.print(`<span class="terminal-info">Maximum password length supported by kernel: 256</span>`);
+            this.print(`<span class="terminal-info">Hashes: 1 digests; 1 unique digests, 1 unique salts</span>`);
+            this.print(`<span class="terminal-info">Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates</span>`);
+            this.print(`<span class="terminal-info">Optimizers applied:</span>`);
+            this.print(`<span class="terminal-info">* Zero-Byte</span>`);
+            this.print(`<span class="terminal-info">* Early-Skip</span>`);
+            this.print(`<span class="terminal-info">* Not-Salted</span>`);
+            this.print(`<span class="terminal-info">* Not-Iterated</span>`);
+            this.print(`<span class="terminal-info">* Single-Hash</span>`);
+            this.print(`<span class="terminal-info">* Single-Salt</span>`);
+            this.print(`<span class="terminal-info">* Raw-Hash</span>`);
+            this.print(`<span class="terminal-info">Watchdog: Hardware monitoring interface not found on your system</span>`);
+            this.print(`<span class="terminal-info">Watchdog: Temperature abort trigger disabled</span>`);
+            this.print(`<span class="terminal-info">Initializing device kernels and memory ...</span>`);
+
+            setTimeout(() => {
+                this.print(`<span class="terminal-success">5efc9751e9b9a8f9c5d9a9f9e9b9a9f9c5d9a9f9e9b9a9f9c5d9a9f9e9b9a9f9:password123</span>`, 'terminal-success');
+                this.print(`<span class="terminal-info">Session..........: hashcat</span>`);
+                this.print(`<span class="terminal-info">Status...........: Cracked</span>`);
+                this.print(`<span class="terminal-info">Hash.Mode........: 0 (MD5)</span>`);
+                this.print(`<span class="terminal-info">Hash.Target......: hash.txt</span>`);
+                this.print(`<span class="terminal-info">Time.Started.....: ${new Date().toLocaleTimeString()}</span>`);
+                this.print(`<span class="terminal-info">Time.Estimated...: ${new Date().toLocaleTimeString()}</span>`);
+                this.print(`<span class="terminal-info">Recovered........: 1/1 (100.00%) Digests</span>`);
+                this.print(`<span class="terminal-info">Recovered/Total...: 1/1 (100.00%) Digests</span>`);
+                this.print(`<span class="terminal-info">Progress.........: 0/0 (0.00%)</span>`);
+                this.print(`<span class="terminal-info">Rejected.........: 0/0 (0.00%)</span>`);
+                this.print(`<span class="terminal-info">Speed.#1.........: 0 H/s</span>`);
+                this.print(`<span class="terminal-info">Speed.#2.........: 0 H/s</span>`);
+                this.print(`<span class="terminal-info">Speed.#3.........: 0 H/s</span>`);
+                this.print(`<span class="terminal-info">Speed.#4.........: 0 H/s</span>`);
+                this.print(`<span class="terminal-info">Speed.#5.........: 0 H/s</span>`);
+                this.print(`<span class="terminal-info">Speed.#6.........: 0 H/s</span>`);
+                this.print(`<span class="terminal-info">Speed.#*.........: 0 H/s</span>`);
+            }, 2000);
+            
+            return;
+        },
+
+        nikto: function(args) {
+            if (args.length === 0) {
+                return `<span class="terminal-error">nikto: missing URL operand</span>
+<span class="terminal-dim">Usage: nikto -h [URL]</span>`;
+            }
+            
+            const url = args[0];
+            this.print(`<span class="terminal-info">- Nikto v2.5.0</span>`);
+            this.print(`<span class="terminal-info">---------------------------------------------------------------------------</span>`);
+            this.print(`<span class="terminal-info">+ Target IP:          192.168.1.100</span>`);
+            this.print(`<span class="terminal-info">+ Target Hostname:    ${url}</span>`);
+            this.print(`<span class="terminal-info">+ Target Port:        80</span>`);
+            this.print(`<span class="terminal-info">+ Start Time:         ${new Date().toLocaleTimeString()}</span>`);
+            this.print(`<span class="terminal-info">---------------------------------------------------------------------------</span>`);
+            this.print(`<span class="terminal-info">+ Server: Apache/2.4.58 (Ubuntu)</span>`);
+
+            setTimeout(() => {
+                this.print(`<span class="terminal-warning">+ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type</span>`, 'terminal-warning');
+            }, 1000);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-warning">+ /: Server banner leaked in 'Server' response header. 'Apache/2.4.58 (Ubuntu)'</span>`, 'terminal-warning');
+            }, 1500);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-warning">+ /: Uncommon header 'x-frame-options' found, with contents: 'SAMEORIGIN'</span>`, 'terminal-warning');
+            }, 2000);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-warning">+ /: An XSS vulnerability was found in the 'X-XSS-Protection' header</span>`, 'terminal-warning');
+            }, 2500);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-info">---------------------------------------------------------------------------</span>`);
+                this.print(`<span class="terminal-info">+ End Time:           ${new Date().toLocaleTimeString()}</span>`);
+                this.print(`<span class="terminal-info">+ 4 requests performed in 3 seconds</span>`);
+                this.print(`<span class="terminal-info">+ 4 error(s) found</span>`);
+                this.print(`<span class="terminal-info">+ 4 warning(s) found</span>`);
+                this.print(`<span class="terminal-info">---------------------------------------------------------------------------</span>`);
+            }, 3000);
+            
+            return;
+        },
+
+        gobuster: function(args) {
+            if (args.length === 0) {
+                return `<span class="terminal-error">gobuster: missing arguments</span>
+<span class="terminal-dim">Usage: gobuster dir -u [URL] -w [wordlist]</span>`;
+            }
+            
+            this.print(`<span class="terminal-info">Gobuster v3.6</span>`);
+            this.print(`<span class="terminal-info">by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)</span>`);
+            this.print(`<span class="terminal-info">==============================================================</span>`);
+            this.print(`<span class="terminal-info">[+] Url:                     http://example.com</span>`);
+            this.print(`<span class="terminal-info">[+] Method:                  GET</span>`);
+            this.print(`<span class="terminal-info">[+] Threads:                 10</span>`);
+            this.print(`<span class="terminal-info">[+] Wordlist:                /usr/share/wordlists/dirb/common.txt</span>`);
+            this.print(`<span class="terminal-info">[+] Negative Status codes:   404</span>`);
+            this.print(`<span class="terminal-info">[+] User Agent:              gobuster/3.6</span>`);
+            this.print(`<span class="terminal-info">[+] Timeout:                 10s</span>`);
+            this.print(`<span class="terminal-info">==============================================================</span>`);
+
+            setTimeout(() => {
+                this.print(`<span class="terminal-success">/admin               [Status: 200] [Size: 1234]</span>`, 'terminal-success');
+            }, 500);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-success">/images              [Status: 200] [Size: 4567]</span>`, 'terminal-success');
+            }, 1000);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-success">/css                 [Status: 200] [Size: 789]</span>`, 'terminal-success');
+            }, 1500);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-success">/js                  [Status: 200] [Size: 2345]</span>`, 'terminal-success');
+            }, 2000);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-success">/uploads             [Status: 200] [Size: 5678]</span>`, 'terminal-success');
+            }, 2500);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-info">==============================================================</span>`);
+                this.print(`<span class="terminal-info">Finished</span>`);
+            }, 3000);
+            
+            return;
+        },
+
+        dirb: function(args) {
+            if (args.length === 0) {
+                return `<span class="terminal-error">dirb: missing URL operand</span>
+<span class="terminal-dim">Usage: dirb [URL] [wordlist]</span>`;
+            }
+            
+            const url = args[0];
+            this.print(`<span class="terminal-info">---- Scanning URL: ${url} ----</span>`);
+            this.print(`<span class="terminal-info">+ ${url}/admin (CODE:200|SIZE:1234)</span>`);
+            this.print(`<span class="terminal-info">+ ${url}/images (CODE:200|SIZE:4567)</span>`);
+            this.print(`<span class="terminal-info">+ ${url}/css (CODE:200|SIZE:789)</span>`);
+            this.print(`<span class="terminal-info">+ ${url}/js (CODE:200|SIZE:2345)</span>`);
+            this.print(`<span class="terminal-info">+ ${url}/uploads (CODE:200|SIZE:5678)</span>`);
+            this.print(`<span class="terminal-info">--------------------</span>`);
+            this.print(`<span class="terminal-info">ENDED</span>`);
+            this.print(`<span class="terminal-info">Found 5 directories</span>`);
+            return;
+        },
+
+        dirbuster: function(args) {
+            this.print(`<span class="terminal-info">DirBuster 1.0-RC1 - Starting</span>`);
+            this.print(`<span class="terminal-info">Target URL: http://example.com</span>`);
+            this.print(`<span class="terminal-info">Wordlist: /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt</span>`);
+            this.print(`<span class="terminal-info">Threads: 10</span>`);
+            this.print(`<span class="terminal-info">Starting directory brute force...</span>`);
+
+            setTimeout(() => {
+                this.print(`<span class="terminal-success">Found: /admin (200)</span>`, 'terminal-success');
+            }, 1000);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-success">Found: /images (200)</span>`, 'terminal-success');
+            }, 2000);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-success">Found: /uploads (200)</span>`, 'terminal-success');
+            }, 3000);
+            
+            setTimeout(() => {
+                this.print(`<span class="terminal-info">Scan completed</span>`);
+                this.print(`<span class="terminal-info">Total directories found: 3</span>`);
+            }, 4000);
+            
+            return;
+        },
+
+        netcat: function(args) {
+            this.print(`<span class="terminal-info">Netcat (nc) 1.10-47</span>`);
+            this.print(`<span class="terminal-info">Usage: nc [options] [hostname] [port]</span>`);
+            this.print(`<span class="terminal-info">Common options:</span>`);
+            this.print(`<span class="terminal-info">  -l    Listen mode</span>`);
+            this.print(`<span class="terminal-info">  -p    Port number</span>`);
+            this.print(`<span class="terminal-info">  -v    Verbose</span>`);
+            this.print(`<span class="terminal-info">  -z    Zero-I/O mode</span>`);
+            return;
+        },
+
+        gdb: function(args) {
+            this.print(`<span class="terminal-info">GNU gdb (Ubuntu 13.2-0ubuntu3) 13.2</span>`);
+            this.print(`<span class="terminal-info">Copyright (C) 2023 Free Software Foundation, Inc.</span>`);
+            this.print(`<span class="terminal-info">License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html></span>`);
+            this.print(`<span class="terminal-info">This is free software: you are free to change and redistribute it.</span>`);
+            this.print(`<span class="terminal-info">There is NO WARRANTY, to the extent permitted by law.</span>`);
+            this.print(`<span class="terminal-info">Type "show configuration" for configuration details.</span>`);
+            this.print(`<span class="terminal-info">For bug reporting instructions, please see:</span>`);
+            this.print(`<span class="terminal-info"><http://www.gnu.org/software/gdb/bugs/>.</span>`);
+            this.print(`<span class="terminal-info">Find the GDB manual and other documentation resources online at:</span>`);
+            this.print(`<span class="terminal-info">    <http://www.gnu.org/software/gdb/documentation/>.</span>`);
+            this.print(`<span class="terminal-info">For help, type "help".</span>`);
+            this.print(`<span class="terminal-info">Type "apropos word" to search for commands related to "word".</span>`);
+            this.print(`<span class="terminal-success">(gdb)</span>`, 'terminal-prompt');
+            return;
+        },
+
+        git: function(args) {
+            this.print(`<span class="terminal-info">git version 2.43.0</span>`);
+            this.print(`<span class="terminal-info">Usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]</span>`);
+            this.print(`<span class="terminal-info">           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]</span>`);
+            this.print(`<span class="terminal-info">           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]</span>`);
+            this.print(`<span class="terminal-info">           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]</span>`);
+            this.print(`<span class="terminal-info">           <command> [<args>]</span>`);
+            this.print(`<span class="terminal-info">Common commands:</span>`);
+            this.print(`<span class="terminal-info">  git init     Initialize a new Git repository</span>`);
+            this.print(`<span class="terminal-info">  git clone    Clone a repository into a new directory</span>`);
+            this.print(`<span class="terminal-info">  git add      Add file contents to the index</span>`);
+            this.print(`<span class="terminal-info">  git commit   Record changes to the repository</span>`);
+            this.print(`<span class="terminal-info">  git push     Update remote refs along with associated objects</span>`);
+            this.print(`<span class="terminal-info">  git pull     Fetch from and integrate with another repository</span>`);
+            return;
+        },
+
+        vim: function(args) {
+            this.print(`<span class="terminal-info">VIM - Vi IMproved 9.0</span>`);
+            this.print(`<span class="terminal-info">Version 9.0.1000</span>`);
+            this.print(`<span class="terminal-info">Type :help for help</span>`);
+            this.print(`<span class="terminal-info">Type :q to quit</span>`);
+            this.print(`<span class="terminal-info">Type :wq to save and quit</span>`);
+            return;
+        },
+
+        nano: function(args) {
+            this.print(`<span class="terminal-info">GNU nano 7.2</span>`);
+            this.print(`<span class="terminal-info">Type ^G for help</span>`);
+            this.print(`<span class="terminal-info">Type ^X to exit</span>`);
+            return;
         },
 
         clear: function() {
