@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网页版俄罗斯方块</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-gamepad"></i> 网页版俄罗斯方块</h1>
+            <p class="subtitle">经典益智游戏 - 挑战你的反应速度</p>
+        </header>
+
+        <main class="game-container">
+            <div class="game-area">
+                <div class="game-board">
+                    <canvas id="gameCanvas" width="300" height="600"></canvas>
+                    <div class="game-overlay" id="gameOverlay">
+                        <div class="overlay-content">
+                            <h2 id="overlayTitle">俄罗斯方块</h2>
+                            <p id="overlayText">按空格键开始游戏</p>
+                            <button id="startBtn" class="btn-primary"><i class="fas fa-play"></i> 开始游戏</button>
+                            <button id="pauseBtn" class="btn-secondary"><i class="fas fa-pause"></i> 暂停游戏</button>
+                            <button id="restartBtn" class="btn-secondary"><i class="fas fa-redo"></i> 重新开始</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="game-sidebar">
+                    <div class="game-info">
+                        <div class="info-card">
+                            <h3><i class="fas fa-chart-line"></i> 游戏信息</h3>
+                            <div class="info-item">
+                                <span class="info-label">分数:</span>
+                                <span id="score" class="info-value">0</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">等级:</span>
+                                <span id="level" class="info-value">1</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">已消除行数:</span>
+                                <span id="lines" class="info-value">0</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">最高分:</span>
+                                <span id="highScore" class="info-value">0</span>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3><i class="fas fa-shapes"></i> 下一个方块</h3>
+                            <div class="next-piece-container">
+                                <canvas id="nextPieceCanvas" width="120" height="120"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3><i class="fas fa-keyboard"></i> 操作指南</h3>
+                            <div class="controls">
+                                <div class="control-item">
+                                    <span class="key">← →</span>
+                                    <span class="action">左右移动</span>
+                                </div>
+                                <div class="control-item">
+                                    <span class="key">↑</span>
+                                    <span class="action">旋转方块</span>
+                                </div>
+                                <div class="control-item">
+                                    <span class="key">↓</span>
+                                    <span class="action">加速下落</span>
+                                </div>
+                                <div class="control-item">
+                                    <span class="key">空格</span>
+                                    <span class="action">开始/暂停</span>
+                                </div>
+                                <div class="control-item">
+                                    <span class="key">R</span>
+                                    <span class="action">重新开始</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3><i class="fas fa-sliders-h"></i> 游戏设置</h3>
+                            <div class="settings">
+                                <div class="setting-item">
+                                    <label for="difficulty">难度:</label>
+                                    <select id="difficulty">
+                                        <option value="1">简单</option>
+                                        <option value="2" selected>普通</option>
+                                        <option value="3">困难</option>
+                                        <option value="4">专家</option>
+                                    </select>
+                                </div>
+                                <div class="setting-item">
+                                    <label for="soundToggle">音效:</label>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="soundToggle" checked>
+                                        <label for="soundToggle" class="toggle-slider"></label>
+                                    </div>
+                                </div>
+                                <div class="setting-item">
+                                    <label for="themeToggle">深色主题:</label>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="themeToggle" checked>
+                                        <label for="themeToggle" class="toggle-slider"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>使用 HTML5 Canvas + JavaScript 制作 | 按任意键开始游戏</p>
+            <p class="copyright">© 2026 网页版俄罗斯方块 | 心流 CLI 制作</p>
+        </footer>
+
+        <!-- 移动端控制按钮 -->
+        <div class="mobile-controls" id="mobileControls">
+            <div class="mobile-control-row">
+                <button class="mobile-btn mobile-btn-rotate" id="btnRotate">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+            <div class="mobile-control-row">
+                <button class="mobile-btn mobile-btn-left" id="btnLeft">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <button class="mobile-btn mobile-btn-down" id="btnDown">
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+                <button class="mobile-btn mobile-btn-right" id="btnRight">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            <div class="mobile-control-row">
+                <button class="mobile-btn mobile-btn-drop" id="btnDrop">
+                    <i class="fas fa-arrow-down"></i>
+                    <span>快速下落</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 音频元素 - 使用JavaScript生成音效，不依赖外部文件 -->
+
+    <script src="game.js"></script>
+</body>
+</html>
