@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jordan的网站</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .logo span {
+            color: #764ba2;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        h1 {
+            color: white;
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+
+        .buttons-grid {
+            display: grid !important;
+            grid-template-columns: repeat(5, 1fr) !important;
+            gap: 20px !important;
+            width: 100% !important;
+            max-width: 1200px !important;
+            margin: 0 auto !important;
+        }
+
+        @media (max-width: 1200px) {
+            .buttons-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .buttons-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .buttons-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .kali-button {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .kali-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .kali-button img,
+        .game-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .game-icon svg {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .kali-button span {
+            display: block;
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .games-grid {
+            background: white;
+            padding: 40px 20px;
+            margin: 20px;
+            border-radius: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: scale(1.05);
+        }
+
+        .game-card-icon {
+            width: 80px;
+            height: 80px;
+            background: #667eea;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+        }
+
+        .game-card h3 {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .game-card p {
+            color: #666;
+            font-size: 12px;
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            text-align: center;
+            color: #666;
+        }
+
+        .hidden {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            position: absolute !important;
+            left: -9999px !important;
+            width: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Jordan<span>的网站</span></div>
+        <nav>
+            <a href="#">首页</a>
+            <a href="#">游戏</a>
+            <a href="#">关于</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>欢迎来到 Jordan 的网站</h1>
+        <p class="subtitle">探索精彩的游戏世界</p>
+        
+        <div class="buttons-grid">
+            <div id="kali-button-wrapper">
+                <a href="https://j3rd4n.github.io/Jordan/kali-simulator/" target="_blank" class="kali-button">
+                    <img src="https://www.kali.org/images/kali-logo.svg" alt="Kali Linux" onerror="this.src='https://via.placeholder.com/120?text=Kali'">
+                    <span>Kali Linux 模拟器</span>
+                </a>
+            </div>
+            
+            <div id="tetris-button-wrapper">
+                <a href="https://j3rd4n.github.io/Jordan/tetris/" target="_blank" class="kali-button">
+                    <img src="https://di.gameres.com/attachment/forum/202001/19/100739lixzaff9n8uyhycx.jpg" alt="俄罗斯方块">
+                    <span>俄罗斯方块</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="games-grid">
+        <div class="game-card" onclick="showComputer()">
+            <div class="game-card-icon">💻</div>
+            <h3>电脑</h3>
+            <p>PC端精彩游戏</p>
+        </div>
+        <div class="game-card" onclick="showMobile()">
+            <div class="game-card-icon">📱</div>
+            <h3>手机</h3>
+            <p>移动端热门游戏</p>
+        </div>
+    </div>
+
+    <script>
+        function showComputer() {
+            console.log('显示电脑类别');
+            const kaliWrapper = document.getElementById('kali-button-wrapper');
+            const tetrisWrapper = document.getElementById('tetris-button-wrapper');
+            
+            kaliWrapper.classList.remove('hidden');
+            kaliWrapper.style.display = '';
+            kaliWrapper.style.visibility = '';
+            kaliWrapper.style.opacity = '';
+            
+            tetrisWrapper.classList.remove('hidden');
+            tetrisWrapper.style.display = '';
+            tetrisWrapper.style.visibility = '';
+            tetrisWrapper.style.opacity = '';
+        }
+
+        function showMobile() {
+            console.log('显示手机类别');
+            const kaliWrapper = document.getElementById('kali-button-wrapper');
+            const tetrisWrapper = document.getElementById('tetris-button-wrapper');
+            
+            // 隐藏 Kali Linux
+            kaliWrapper.classList.add('hidden');
+            kaliWrapper.style.display = 'none';
+            kaliWrapper.style.visibility = 'hidden';
+            
+            // 隐藏俄罗斯方块
+            tetrisWrapper.classList.add('hidden');
+            tetrisWrapper.style.display = 'none';
+            tetrisWrapper.style.visibility = 'hidden';
+        }
+    </script>
+
+    <footer>
+        <p>© 2026 Jordan的网站. 保留所有权利.</p>
+    </footer>
+</body>
+</html>
