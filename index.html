@@ -77,6 +77,33 @@
             margin-bottom: 40px;
         }
 
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 1200px) {
+            .buttons-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .buttons-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .buttons-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         .kali-button {
             background: white;
             border: none;
@@ -86,7 +113,11 @@
             transition: all 0.3s ease;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             text-decoration: none;
-            display: inline-block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
         }
 
         .kali-button:hover {
@@ -184,18 +215,20 @@
         <h1>欢迎来到 Jordan 的网站</h1>
         <p class="subtitle">探索精彩的游戏世界</p>
         
-        <div id="kali-button-wrapper">
-            <a href="https://jordan-mc-error.github.io/Jordan/kali-simulator/" target="_blank" class="kali-button">
-                <img src="https://www.kali.org/images/kali-logo.svg" alt="Kali Linux" onerror="this.src='https://via.placeholder.com/120?text=Kali'">
-                <span>Kali Linux 模拟器</span>
-            </a>
-        </div>
-        
-        <div id="tetris-button-wrapper" style="margin-top: 20px;">
-            <a href="https://jordan-mc-error.github.io/Jordan/tetris/" target="_blank" class="kali-button">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Tetris.svg/120px-Tetris.svg.png" alt="俄罗斯方块" onerror="this.src='https://via.placeholder.com/120?text=🎮'">
-                <span>俄罗斯方块</span>
-            </a>
+        <div class="buttons-grid">
+            <div id="kali-button-wrapper">
+                <a href="https://jordan-mc-error.github.io/Jordan/kali-simulator/" target="_blank" class="kali-button">
+                    <img src="https://www.kali.org/images/kali-logo.svg" alt="Kali Linux" onerror="this.src='https://via.placeholder.com/120?text=Kali'">
+                    <span>Kali Linux 模拟器</span>
+                </a>
+            </div>
+            
+            <div id="tetris-button-wrapper">
+                <a href="https://jordan-mc-error.github.io/Jordan/tetris/" target="_blank" class="kali-button">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Tetris.svg/120px-Tetris.svg.png" alt="俄罗斯方块" onerror="this.src='https://via.placeholder.com/120?text=🎮'">
+                    <span>俄罗斯方块</span>
+                </a>
+            </div>
         </div>
     </div>
 
