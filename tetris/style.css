@@ -65,6 +65,9 @@ body {
     font-weight: 500;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    position: relative;
+    z-index: 10;
+    white-space: nowrap;
 }
 
 .home-button:hover {
