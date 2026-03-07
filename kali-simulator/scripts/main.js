@@ -42,27 +42,26 @@ class KaliSimulator {
 
     bindLoginEvents() {
         const loginForm = document.getElementById('login-form');
+        const usernameInput = document.getElementById('username');
         const passwordInput = document.getElementById('password');
         const guestLogin = document.getElementById('guest-login');
         const terminalLogin = document.getElementById('terminal-login');
-        
+
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            const username = usernameInput.value.trim() || 'kali';
             const password = passwordInput.value;
-            
-            if (password === 'kali') {
-                this.login();
-            } else {
-                this.showLoginError();
-            }
+
+            // 任何密码都可以登录
+            this.login('normal', username);
         });
-        
+
         guestLogin.addEventListener('click', () => {
-            this.login('guest');
+            this.login('guest', 'guest');
         });
-        
+
         terminalLogin.addEventListener('click', () => {
-            this.login('terminal');
+            this.login('terminal', 'kali');
         });
     }
 
@@ -78,9 +77,19 @@ class KaliSimulator {
         }, 500);
     }
 
-    login(mode = 'normal') {
+    login(mode = 'normal', username = 'kali') {
         this.loggedIn = true;
-        
+        this.username = username;
+
+        // Update filesystem with the username
+        this.filesystem.currentUser = username;
+        this.filesystem.updateUser(username);
+
+        // Update terminal user
+        if (this.terminal) {
+            this.terminal.updateUser(username);
+        }
+
         if (mode === 'terminal') {
             // Launch terminal only mode
             this.launchTerminalOnly();
