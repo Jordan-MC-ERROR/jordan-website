@@ -1,0 +1,527 @@
+/* Terminal Window */
+.terminal-window {
+    background: var(--terminal-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Courier New', 'Consolas', monospace;
+}
+
+.terminal-header {
+    background: var(--panel-bg);
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-color);
+    cursor: move;
+    user-select: none;
+}
+
+.terminal-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+.terminal-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.terminal-control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.terminal-control.close {
+    background: #ff5f57;
+}
+
+.terminal-control.minimize {
+    background: #ffbd2e;
+}
+
+.terminal-control.maximize {
+    background: #28c940;
+}
+
+.terminal-control:hover {
+    filter: brightness(1.2);
+}
+
+.terminal-body {
+    padding: 12px;
+    overflow-y: auto;
+    height: 400px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.terminal-output {
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+}
+
+.terminal-prompt {
+    color: var(--kali-green);
+    font-weight: bold;
+    margin-right: 8px;
+    white-space: nowrap;
+}
+
+.terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--terminal-text);
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+    caret-color: var(--kali-green);
+}
+
+/* Terminal Colors */
+.terminal-text {
+    color: var(--terminal-text);
+}
+
+.terminal-error {
+    color: var(--kali-red);
+}
+
+.terminal-success {
+    color: var(--kali-green);
+}
+
+.terminal-warning {
+    color: var(--kali-yellow);
+}
+
+.terminal-info {
+    color: var(--kali-blue);
+}
+
+.terminal-dim {
+    color: var(--text-secondary);
+}
+
+.terminal-bold {
+    font-weight: bold;
+}
+
+.terminal-underline {
+    text-decoration: underline;
+}
+
+/* ASCII Art Styles */
+.ascii-art {
+    font-family: 'Courier New', monospace;
+    white-space: pre;
+    line-height: 1;
+    color: var(--kali-blue);
+    margin: 10px 0;
+}
+
+/* Command History */
+.command-history {
+    position: absolute;
+    background: var(--window-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+}
+
+.command-history-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.command-history-item:hover {
+    background: rgba(85, 119, 153, 0.2);
+}
+
+.command-history-item.selected {
+    background: rgba(85, 119, 153, 0.3);
+}
+
+/* Tab Completion */
+.tab-completion {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px;
+    background: rgba(85, 119, 153, 0.1);
+    border-radius: 4px;
+    margin: 8px 0;
+}
+
+.tab-completion-item {
+    padding: 4px 8px;
+    background: rgba(85, 119, 153, 0.2);
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-completion-item:hover {
+    background: rgba(85, 119, 153, 0.4);
+}
+
+/* Terminal Scrollbar */
+.terminal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+    background: var(--terminal-bg);
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+.terminal-body::-webkit-scrollbar-thumb:hover {
+    background: var(--kali-blue);
+}
+
+/* Syntax Highlighting */
+.syntax-command {
+    color: var(--kali-green);
+}
+
+.syntax-option {
+    color: var(--kali-yellow);
+}
+
+.syntax-argument {
+    color: var(--kali-light-blue);
+}
+
+.syntax-string {
+    color: #ce9178;
+}
+
+.syntax-number {
+    color: #b5cea8;
+}
+
+.syntax-comment {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Progress Bar in Terminal */
+.terminal-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.terminal-progress-bar {
+    flex: 1;
+    height: 20px;
+    background: var(--border-color);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.terminal-progress-fill {
+    height: 100%;
+    background: var(--kali-green);
+    transition: width 0.3s ease;
+}
+
+.terminal-progress-text {
+    min-width: 50px;
+    text-align: right;
+    font-size: 12px;
+}
+
+/* Table Output */
+.terminal-table {
+    border-collapse: collapse;
+    margin: 8px 0;
+    font-size: 13px;
+}
+
+.terminal-table th,
+.terminal-table td {
+    padding: 6px 12px;
+    text-align: left;
+    border: 1px solid var(--border-color);
+}
+
+.terminal-table th {
+    background: rgba(85, 119, 153, 0.2);
+    font-weight: 600;
+}
+
+.terminal-table tr:hover {
+    background: rgba(85, 119, 153, 0.1);
+}
+
+/* Tree View */
+.tree-view {
+    margin: 8px 0;
+    font-size: 13px;
+}
+
+.tree-item {
+    padding: 4px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.tree-item::before {
+    content: '├─';
+    position: absolute;
+    left: 8px;
+    color: var(--border-color);
+}
+
+.tree-item:last-child::before {
+    content: '└─';
+}
+
+.tree-directory {
+    color: var(--kali-blue);
+    font-weight: 600;
+}
+
+.tree-file {
+    color: var(--terminal-text);
+}
+
+.tree-executable {
+    color: var(--kali-green);
+}
+
+.tree-symlink {
+    color: var(--kali-light-blue);
+    font-style: italic;
+}
+
+/* Terminal Tabs */
+.terminal-tabs {
+    display: flex;
+    background: var(--panel-bg);
+    border-bottom: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.terminal-tab {
+    padding: 8px 16px;
+    border-right: 1px solid var(--border-color);
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.terminal-tab:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.terminal-tab.active {
+    background: var(--terminal-bg);
+    border-bottom: 2px solid var(--kali-blue);
+}
+
+.terminal-tab-close {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.terminal-tab:hover .terminal-tab-close {
+    opacity: 1;
+}
+
+.terminal-tab-close:hover {
+    background: var(--kali-red);
+    color: white;
+}
+
+/* Split Terminal */
+.terminal-split {
+    display: flex;
+    height: 100%;
+}
+
+.terminal-pane {
+    flex: 1;
+    border-right: 1px solid var(--border-color);
+    min-width: 200px;
+}
+
+.terminal-pane:last-child {
+    border-right: none;
+}
+
+/* Terminal Context Menu */
+.terminal-context-menu {
+    position: fixed;
+    background: var(--window-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 6px;
+    min-width: 180px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    display: none;
+}
+
+.terminal-context-menu-item {
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.terminal-context-menu-item:hover {
+    background: rgba(85, 119, 153, 0.2);
+}
+
+/* Search in Terminal */
+.terminal-search {
+    display: none;
+    padding: 8px 12px;
+    background: rgba(85, 119, 153, 0.1);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.terminal-search.active {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.terminal-search input {
+    flex: 1;
+    background: var(--terminal-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 6px 10px;
+    color: var(--terminal-text);
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.terminal-search input:focus {
+    outline: none;
+    border-color: var(--kali-blue);
+}
+
+.terminal-search-count {
+    font-size: 12px;
+    color: var(--text-secondary);
+    min-width: 60px;
+}
+
+/* Terminal Resizer */
+.terminal-resizer {
+    height: 4px;
+    background: transparent;
+    cursor: ns-resize;
+    transition: background 0.2s ease;
+}
+
+.terminal-resizer:hover {
+    background: var(--kali-blue);
+}
+
+/* Blinking Cursor */
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.blinking-cursor {
+    animation: blink 1s step-end infinite;
+}
+
+/* Terminal Modes */
+.terminal-insert-mode .terminal-input::before {
+    content: '▋';
+    color: var(--kali-green);
+    margin-right: 2px;
+}
+
+.terminal-overwrite-mode .terminal-input::before {
+    content: '▊';
+    color: var(--kali-red);
+    margin-right: 2px;
+}
+
+/* File Permissions Colors */
+.perm-read { color: var(--kali-green); }
+.perm-write { color: var(--kali-yellow); }
+.perm-exec { color: var(--kali-red); }
+.perm-dir { color: var(--kali-blue); }
+.perm-symlink { color: var(--kali-light-blue); }
+
+/* Terminal Animations */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+.typing-effect {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 0.5s steps(40, end);
+}
+
+/* Terminal Help Output */
+.help-section {
+    margin: 12px 0;
+}
+
+.help-section-title {
+    color: var(--kali-blue);
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.help-command {
+    color: var(--kali-green);
+    margin: 4px 0;
+}
+
+.help-description {
+    color: var(--text-secondary);
+    margin-left: 20px;
+    font-size: 13px;
+}
