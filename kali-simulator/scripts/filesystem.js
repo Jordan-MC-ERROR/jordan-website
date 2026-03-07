@@ -518,6 +518,66 @@ class VirtualFileSystem {
         // Initialize filesystem
     }
 
+    updateUser(username) {
+        this.currentUser = username;
+        this.currentPath = `/home/${username}`;
+
+        // Create home directory if it doesn't exist
+        if (!this.root.children['home'].children[username]) {
+            this.root.children['home'].children[username] = {
+                name: username,
+                type: 'directory',
+                permissions: 'drwxr-xr-x',
+                owner: username,
+                group: username,
+                size: 4096,
+                modified: new Date(),
+                children: {
+                    'Desktop': {
+                        name: 'Desktop',
+                        type: 'directory',
+                        permissions: 'drwxr-xr-x',
+                        owner: username,
+                        group: username,
+                        size: 4096,
+                        modified: new Date(),
+                        children: {}
+                    },
+                    'Documents': {
+                        name: 'Documents',
+                        type: 'directory',
+                        permissions: 'drwxr-xr-x',
+                        owner: username,
+                        group: username,
+                        size: 4096,
+                        modified: new Date(),
+                        children: {}
+                    },
+                    'Downloads': {
+                        name: 'Downloads',
+                        type: 'directory',
+                        permissions: 'drwxr-xr-x',
+                        owner: username,
+                        group: username,
+                        size: 4096,
+                        modified: new Date(),
+                        children: {}
+                    },
+                    'welcome.txt': {
+                        name: 'welcome.txt',
+                        type: 'file',
+                        permissions: '-rw-r--r--',
+                        owner: username,
+                        group: username,
+                        size: 0,
+                        modified: new Date(),
+                        content: `Welcome to Kali Linux Simulator!\n\nHello, ${username}!\nThis is a web-based simulation of the Kali Linux operating system.\nYou can explore the file system, run commands, and use various security tools.\n\nType "help" to see available commands.\n\nEnjoy your hacking experience!`
+                    }
+                }
+            };
+        }
+    }
+
     // Navigate to a path and return the directory
     navigate(path) {
         const normalizedPath = this.normalizePath(path);
