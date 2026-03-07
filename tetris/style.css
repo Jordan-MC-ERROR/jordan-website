@@ -389,6 +389,11 @@ input:checked + .toggle-slider:before {
     color: #666;
 }
 
+/* 移动端控制按钮 - 默认隐藏，只在移动端显示 */
+.mobile-controls {
+    display: none;
+}
+
 /* 响应式设计 */
 @media (max-height: 800px) {
     .header {
