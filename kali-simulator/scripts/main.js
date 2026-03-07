@@ -52,8 +52,12 @@ class KaliSimulator {
             const username = usernameInput.value.trim() || 'kali';
             const password = passwordInput.value;
 
-            // 任何密码都可以登录
-            this.login('normal', username);
+            // 密码必须是 kali
+            if (password === 'kali') {
+                this.login('normal', username);
+            } else {
+                this.showLoginError();
+            }
         });
 
         guestLogin.addEventListener('click', () => {
