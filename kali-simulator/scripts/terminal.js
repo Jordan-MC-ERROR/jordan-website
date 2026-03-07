@@ -280,6 +280,11 @@ class Terminal {
         this.printHTML(welcome);
     }
 
+    updateUser(username) {
+        this.fs.currentUser = username;
+        this.updatePrompt();
+    }
+
     unknownCommand(cmd) {
         return `<span class="terminal-error">bash: ${cmd}: command not found</span>`;
     }
@@ -377,10 +382,12 @@ class Terminal {
         },
 
         cd: function(args) {
-            const path = args[0] || '/home/kali';
-            
+            const username = this.fs.currentUser || 'kali';
+            const homePath = `/home/${username}`;
+            const path = args[0] || homePath;
+
             if (path === '~') {
-                this.fs.changeDirectory('/home/kali');
+                this.fs.changeDirectory(homePath);
                 this.updatePrompt();
                 return;
             }
