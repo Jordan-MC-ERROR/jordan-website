@@ -462,37 +462,42 @@ input:checked + .toggle-slider:before {
     .mobile-controls {
         display: block;
     }
-    
+
     .game-sidebar {
         display: none;
     }
-    
+
     .header h1 {
         font-size: 1.5rem;
     }
-    
+
+    .home-button {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
     .game-board {
         min-width: 280px;
     }
-    
+
     #gameCanvas {
         width: 260px;
         height: 520px;
     }
-    
+
     .overlay-content {
         padding: 15px;
         max-width: 300px;
     }
-    
+
     .overlay-content h2 {
         font-size: 1.8rem;
     }
-    
+
     .overlay-content p {
         font-size: 1rem;
     }
-    
+
     .btn-primary, .btn-secondary {
         padding: 10px 20px;
         font-size: 1rem;
